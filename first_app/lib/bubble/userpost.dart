@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class UserPosts extends StatelessWidget {
@@ -21,15 +21,16 @@ class UserPosts extends StatelessWidget {
                       color: Colors.grey,
                       shape: BoxShape.circle,
                     ),
-                   ),
-                   ClipRRect(borderRadius: BorderRadius.circular(50),
-                   child: 
-                  Image.network(
-                    'https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,),
-                   ),
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.network(
+                      'https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   SizedBox(
                     width: 10,
                   ),
@@ -44,10 +45,10 @@ class UserPosts extends StatelessWidget {
           ),
         ),
         Container(
-          child: Image.network('https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        fit: BoxFit.cover,
-       ),
-          
+          child: Image.network(
+            'https://images.pexels.com/photos/1172253/pexels-photo-1172253.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+            fit: BoxFit.cover,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
