@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http_app/http/homepage.dart';
 import 'package:http_app/http/httpuse.dart';
+import 'package:http_app/model/instaUI.dart';
+import 'package:http_app/model/userUI.dart';
 void main() {
   runApp(HttpApp());
 }
@@ -14,7 +16,7 @@ title: "Http App",
 theme: ThemeData(
   primarySwatch: Colors.green,
 ),
-home: Homepage(),
+home: Insta_UI(),
     );
   }
 }

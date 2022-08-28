@@ -74,8 +74,10 @@ class _CommentsUIState extends State<CommentsUI> {
                       SizedBox(
                         height: 15,
                       ),
-                      Text(_comment["body"]),
-                      Text(_comment["name"],
+                      Text(
+                        _comment["body"]),
+                      Text(
+                         _comment["name"],
                       style: TextStyle(fontWeight: FontWeight.bold,
                       fontSize: 20),)
                     ],

@@ -16,6 +16,9 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  bool isLoading = false;
+  bool hasErrorOccured = false;
+  String errorMessage = '';
   @override
   void initState() {
     super.initState();
@@ -40,6 +43,8 @@ class _HomepageState extends State<Homepage> {
     print("server url is $serverLocation");
 // GET
     print("1. fetching value from server");
+    isLoading = true;
+    setState(() {});
     var response = http.get(uri);
     response.then((res) {
       print(res.statusCode);
@@ -47,17 +52,22 @@ class _HomepageState extends State<Homepage> {
       final List decoded = json.decode(res.body);
       // posts = decoded;
       posts = decoded
-      .map<Post>((item) => Post.covertJsonToPost(item)
-      //  {
-      //   final convertedItem = Post.covertJsonToPost(item);
-      //   return convertedItem;
-      // }
-      // )
-      ).toList();
+          .map<Post>((item) => Post.covertJsonToPost(item)
+              //  {
+              //   final convertedItem = Post.covertJsonToPost(item);
+              //   return convertedItem;
+              // }
+              // )
+              )
+          .toList();
       print("body text is ........:$bodytext");
+      isLoading = false;
       setState(() {});
     });
     response.catchError((e) {
+      isLoading = false;
+      hasErrorOccured = true;
+      errorMessage = e.toString();
       print(e);
     });
 
@@ -70,42 +80,72 @@ class _HomepageState extends State<Homepage> {
     print("2:");
   }
 
+  postSomethingToServer() async {
+    final uri = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    final response = await http.post(
+      uri,
+      body: {"email": "email", "password": "password"},
+      headers: {
+        "accept": "application/json",
+      },
+    );
+    print(response.statusCode);
+    print(response.body);
+    setState(() {});
+  }
+
+  Widget buildList() {
+    return ListView.builder(
+        itemCount: posts.length,
+        itemBuilder: (context, index) {
+          final Post _post = posts[index];
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey),
+                  borderRadius: BorderRadius.circular(15)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "${index + 1}." + _post.title,
+                    style: TextStyle(
+                      // color: Colors.red,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(_post.body),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+  Widget buildBody() {
+    if(isLoading) {
+      return CircularProgressIndicator();
+    }
+    if(hasErrorOccured) {
+      return Text(errorMessage);
+    }
+    return buildList();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: ListView.builder(
-              itemCount: posts.length,
-              itemBuilder: (context, index) {
-                final Post _post = posts[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(15)),
-                    child: Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${index + 1}." + _post.title,
-                          style: TextStyle(
-                            // color: Colors.red,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.start,
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(_post.body),
-                      ],
-                    ),
-                  ),
-                );
-              })),
-    );
+      appBar: AppBar(),
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          postSomethingToServer();
+        }),
+        body: Center(
+         child:  buildBody(),
+        ));
   }
 }
