@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:my_app/follower/Followers.dart';
+import 'package:my_app/form/form_bar.dart';
+import 'package:my_app/form/login_bar.dart';
+import 'package:my_app/form/signup_page.dart';
+import 'package:my_app/navagation/customroute.dart';
+import 'package:my_app/stful_wid/bottom_nav.dart';
 
+import 'navagation/navscreen.dart';
 
 
 void main() {
@@ -8,11 +13,17 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  get ourRouteGenerator => null;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "First App",
-      home: Followers(),
+      title: "Login Screen",
+      theme: ThemeData(
+        primaryColor: Colors.purple,
+      ),
+      home: NavigationScreen(),
+      onGenerateRoute: ourRouteGenerator,
     );
   }
 }

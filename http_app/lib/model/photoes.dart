@@ -1,11 +1,11 @@
 
 
-class Hit {
+class Photos {
   final int id, likes, comments, userid;
   final String imageURL, user, userImageURl;
-  final  hits;
 
-  Hit(
+
+  Photos(
       {required this.id,
       required this.likes,
       required this.comments,
@@ -13,17 +13,17 @@ class Hit {
       required this.imageURL,
       required this.user,
       required this.userImageURl,
-      required this.hits});
+      });
 
-  factory Hit.ConvertJsonToHits(Map json) {
-    return Hit(
+  static Photos ConvertJsonToPhotos(Map json) {
+    return Photos(
         id: json['id'],
         likes: json['likes'],
         comments: json['comments'],
         userid: json['user_id'],
         imageURL: json['imageURL'],
         user: json['user'],
-        userImageURl: json["hits" 'userImageURl'],
-        hits: json['hits']);
+        userImageURl: json['userImageURl'],
+        );
   }
 }
