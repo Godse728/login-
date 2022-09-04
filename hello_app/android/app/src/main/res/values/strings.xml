@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">my hndsm app</string>
+<string name="facebook_app_id">828140905265164</string>
+<string name="fb_login_protocol_scheme">test</string>
+<string name="facebook_client_token">f9fad5c90bddda05b025da7f9cb4e8a2</string>
+
+</resources>
